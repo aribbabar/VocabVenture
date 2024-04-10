@@ -1,11 +1,115 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WordCraft</title>
+    <title>Language Learning Platform</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
 </head>
-<body>
-  {% block content %} {% endblock %}
+<body class="homepage is-preload">
+    <div id="page-wrapper">
+
+        <!-- Header -->
+        <section id="header">
+
+            <!-- Logo -->
+            <h1><a href="index.html">WordCraft</a></h1>
+
+            <!-- Nav -->
+            <nav id="nav">
+                <ul>
+                    <li class="current"><a href="index.html">Home</a></li>
+                    <li><a href="lessons.html">German Lessons</a></li>
+                    <li><a href="chatbot.html">Chatbot</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </nav>
+
+            <!-- Banner -->
+            <section id="banner">
+                <header>
+                    <h2>Welcome to Your Language Learning Journey!</h2>
+                    <p>Start learning German in a fun and interactive way today.</p>
+                </header>
+            </section>
+
+            <!-- Intro -->
+            <section id="intro" class="container">
+                <div class="row">
+                    <div class="col-4 col-12-medium">
+                        <section class="first">
+                            <i class="icon solid featured fa-cog"></i>
+                            <header>
+                                <h2>Interactive Lessons</h2>
+                            </header>
+                            <p>Engage with our lessons to improve your German language skills.</p>
+                        </section>
+                    </div>
+                    <div class="col-4 col-12-medium">
+                        <section class="middle">
+                            <i class="icon solid featured alt fa-bolt"></i>
+                            <header>
+                                <h2>Talk with Our Chatbot</h2>
+                            </header>
+                            <p>Practice your German with our AI chatbot anytime.</p>
+                        </section>
+                    </div>
+                    <div class="col-4 col-12-medium">
+                        <section class="last">
+                            <i class="icon solid featured alt2 fa-star"></i>
+                            <header>
+                                <h2>About Us</h2>
+                            </header>
+                            <p>Learn more about our mission and methods.</p>
+                        </section>
+                    </div>
+                </div>
+                <footer>
+                    <ul class="actions">
+                        <li><a href="#" class="button large">Get Started</a></li>
+                    </ul>
+                </footer>
+            </section>
+
+        </section>
+
+        <!-- Main -->
+        <section id="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <!-- Content -->
+                        <section>
+                            <header class="major">
+                                <h2>Why Learn With Us?</h2>
+                            </header>
+                            <p>Our platform offers a unique approach to language learning. Discover the benefits of learning German with us and how we can help unlock new opportunities for you.</p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <section id="footer">
+            <div class="container">
+                <header>
+                    <h2>Contact Us</h2>
+                </header>
+                <p>Have questions? Our team is here to help you on your language learning journey. Reach out to us for more information.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='assets/js/jquery.dropotron.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/browser.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/breakpoints.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/util.js') }}"></script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"></script>
+
 </body>
 </html>
