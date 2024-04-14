@@ -53,7 +53,7 @@
 <body>
     <div class="form-container">
         <h2>Signup</h2>
-        <form action="{{ url_for('signup') }}" method="post">
+        <form action="{{ url_for('auth.signup') }}" method="post">
             <div class="form-field">
                 <input type="text" name="firstname" placeholder="First Name" required>
             </div>
@@ -73,7 +73,7 @@
                 <input type="submit" value="Signup">
             </div>
             <div class="form-field">
-                <a href="{{ url_for('home') }}" style="display: block; text-align: center; margin-top: 15px;">Back to Home</a>
+                <a href="{{ url_for('main.home') }}" style="display: block; text-align: center; margin-top: 15px;">Back to Home</a>
             </div>
         </form>
     </div>
