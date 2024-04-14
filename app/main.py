@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 
+
 main = Blueprint('main', __name__)
 
 
@@ -27,6 +28,11 @@ def signup():
         return redirect(url_for('home'))
     # Shows the signup form when method is GET
     return render_template('signup.html')
+
+@main.route('/matching')
+def matching_game():
+    # This route displays the matching game page
+    return render_template('matching.html')
 
 
 if __name__ == '__main__':
