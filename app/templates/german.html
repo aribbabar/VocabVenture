@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/german-lesson.css') }}">
+    <title>German Lessons</title>
+</head>
+<body>
+    <div class="header">
+        Welcome to German Lessons
+    </div>
+    <div class="navigation">
+        <a href="/" class="nav-link">Back to Home</a>
+        <a href="{{ url_for('main.lesson_one') }}" class="nav-link">Lesson One</a>
+        <a href="{{ url_for('main.matching_game') }}" class="nav-link">Matching Game</a>
+    </div>
+    <div class="content">
+        <h1>Explore the Fun of Learning German!</h1>
+        <p>Learning a new language opens doors to understanding different cultures and experiences. Our German lessons are designed to make learning engaging and fun. Whether you're a beginner looking to get a grasp of the basics or an advanced learner polishing your skills, our lessons cater to all levels.</p>
+        <p>Discover the joy of conversation in German through interactive exercises, real-life scenarios, and fun games like our "Matching Game". Each lesson builds on the previous, providing a structured yet flexible approach to mastering the language.</p>
+    </div>
+</body>
+</html>

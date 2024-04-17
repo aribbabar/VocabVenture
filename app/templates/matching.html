@@ -13,13 +13,51 @@
         <div class="game-board">
             <div class="words">
                 <div class="word-card" draggable="true" data-match="1">Hello</div>
-                <!-- Add other words similarly -->
+                <div class="word-card" draggable="true" data-match="2">Goodbye</div>
+                <div class="word-card" draggable="true" data-match="3">Please</div>
+                <div class="word-card" draggable="true" data-match="4">Thank you</div>
+                <div class="word-card" draggable="true" data-match="5">Yes</div>
+                <div class="word-card" draggable="true" data-match="6">No</div>
+                <div class="word-card" draggable="true" data-match="7">Excuse me/Sorry</div>
+                <div class="word-card" draggable="true" data-match="8">How are you?</div>
+                <div class="word-card" draggable="true" data-match="9">Good</div>
+                <div class="word-card" draggable="true" data-match="10">Bad</div>
+                <div class="word-card" draggable="true" data-match="11">Food/Eat</div>
+                <div class="word-card" draggable="true" data-match="12">Water</div>
+                <div class="word-card" draggable="true" data-match="13">Work</div>
+                <div class="word-card" draggable="true" data-match="14">School</div>
+                <div class="word-card" draggable="true" data-match="15">Language</div>
+                <div class="word-card" draggable="true" data-match="16">German</div>
+                <div class="word-card" draggable="true" data-match="17">English</div>
+                <div class="word-card" draggable="true" data-match="18">House</div>
+                <div class="word-card" draggable="true" data-match="19">City</div>
+                <div class="word-card" draggable="true" data-match="20">Country</div>
             </div>
             <div class="answers">
                 <div class="answer-box" data-match="1">Hallo</div>
-                <!-- Add other answer boxes similarly -->
+                <div class="answer-box" data-match="2">Tschuss</div>
+                <div class="answer-box" data-match="3">Bitte</div>
+                <div class="answer-box" data-match="4">Danke</div>
+                <div class="answer-box" data-match="5">Ja</div>
+                <div class="answer-box" data-match="6">Nein</div>
+                <div class="answer-box" data-match="7">Entschuldigung</div>
+                <div class="answer-box" data-match="8">Wie geht's?</div>
+                <div class="answer-box" data-match="9">Gut</div>
+                <div class="answer-box" data-match="10">Schlecht</div>
+                <div class="answer-box" data-match="11">Essen</div>
+                <div class="answer-box" data-match="12">Wasser</div>
+                <div class="answer-box" data-match="13">Arbeit</div>
+                <div class="answer-box" data-match="14">Schule</div>
+                <div class="answer-box" data-match="15">Sprache</div>
+                <div class="answer-box" data-match="16">Deutsch</div>
+                <div class="answer-box" data-match="17">Englisch</div>
+                <div class="answer-box" data-match="18">Haus</div>
+                <div class="answer-box" data-match="19">Stadt</div>
+                <div class="answer-box" data-match="20">Land</div>
+                
             </div>
         </div>
+        <a href="/" class="back-home-button">Back to Home</a>
     </div>
     <script src="{{ url_for('static', filename='assets/js/matching.js') }}"></script>
 </body>

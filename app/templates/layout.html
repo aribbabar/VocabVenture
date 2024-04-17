@@ -19,17 +19,23 @@
             <nav id="nav">
                 <ul>
                     <li class="current"><a href="{{ url_for('main.home') }}">Home</a></li>
-                    <li><a href="{{ url_for('auth.signup') }}">Signup</a></li>
-                    <li><a href="{{ url_for('auth.login') }}">Login</a></li>
-                    <li><a href="lessons.html">German Lessons</a></li>
+                    {% if not current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.signup') }}">Signup</a></li>
+                        <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                    {% endif %}
+                    <li><a href="{{ url_for('main.german_lesson') }}">German Lessons</a>
                         <!-- Dropdown Menu -->
                         <ul class="dropotron">
+                            <li><a href="{{ url_for('main.lesson_one') }}">Lesson One</a></li>
                             <li><a href="{{ url_for('main.matching_game') }}">Matching Game</a></li>
                         </ul>
                     </li>                                            
                     <li><a href="chatbot.html">Chatbot</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact Us</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
+                    {% endif %}
                 </ul>
             </nav>
 

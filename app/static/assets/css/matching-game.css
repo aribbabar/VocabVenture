@@ -1,55 +1,76 @@
 /* matching-game.css - Styles specific to the Matching Game */
 
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Source Sans Pro', sans-serif;
-    background-color: #f5f5f5; /* Light gray background */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #f5f5f5; /* Light gray background */
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto; /* Center the container */
-    padding: 20px;
-    background-color: #ffffff; /* White background for content areas */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
-    border-radius: 8px; /* Slightly rounded corners for the container */
+  width: 80%;
+  margin: 0 auto; /* Center the container */
+  padding: 20px;
+  background-color: #ffffff; /* White background for content areas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-radius: 8px; /* Slightly rounded corners for the container */
 }
 
 .game-board {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px; /* Space between columns */
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Space between columns */
 }
 
-.words, .answers {
-    width: 48%; /* Half width for each column, considering gap */
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* Space between items */
+.words,
+.answers {
+  width: 48%; /* Half width for each column, considering gap */
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between items */
 }
 
-.word-card, .answer-box {
-    padding: 10px;
-    text-align: center;
-    background-color: #ececec; /* Light background for cards */
-    border: 1px solid #cccccc; /* Border for cards */
-    cursor: pointer; /* Pointer cursor on hover */
+.word-card,
+.answer-box {
+  padding: 10px;
+  text-align: center;
+  background-color: #ececec; /* Light background for cards */
+  border: 1px solid #cccccc; /* Border for cards */
+  cursor: pointer; /* Pointer cursor on hover */
 }
 
 .word-card[draggable="true"] {
-    background-color: #ddeeff; /* Different background for draggable cards */
+  background-color: #ddeeff; /* Different background for draggable cards */
 }
 
 .answer-box {
-    min-height: 40px; /* Minimum height for answer boxes */
-    background-color: #ffffff; /* White background for answer boxes */
-    border: 2px dashed #cccccc; /* Dashed border for empty boxes */
+  min-height: 40px; /* Minimum height for answer boxes */
+  background-color: #ffffff; /* White background for answer boxes */
+  border: 2px dashed #cccccc; /* Dashed border for empty boxes */
 }
 
 .instructions {
-    font-size: 1.2em; /* Larger font size for instructions */
-    color: #333333; /* Darker text for better readability */
-    margin-bottom: 20px; /* Space below the instructions */
+  font-size: 1.2em; /* Larger font size for instructions */
+  color: #333333; /* Darker text for better readability */
+  margin-bottom: 20px; /* Space below the instructions */
+}
+
+.back-home-button {
+  display: block;
+  width: max-content;
+  margin: 20px auto;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: #d52349; /* Red background */
+  color: white; /* White text */
+  text-decoration: none; /* No underline */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1.2em; /* Larger text */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.back-home-button:hover {
+  background-color: #b21f3d; /* Slightly darker red on hover */
 }

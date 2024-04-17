@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/quiz1.css') }}">
+    <title>Lesson One Quiz</title>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>Lesson One Quiz</h1>
+        <form id="quizForm">
+            <div class="question">
+                <p>1. What is the formal way to say "you" in German?</p>
+                <label><input type="radio" name="q1" value="Sie"> Sie</label>
+                <label><input type="radio" name="q1" value="Du"> Du</label>
+            </div>
+            <div class="question">
+                <p>2. Which version of "you" would you use with close friends?</p>
+                <label><input type="radio" name="q2" value="Sie"> Sie</label>
+                <label><input type="radio" name="q2" value="Du"> Du</label>
+            </div>
+            <div class="question">
+                <p>3. How do you address your professor?</p>
+                <label><input type="radio" name="q3" value="Sie"> Sie</label>
+                <label><input type="radio" name="q3" value="Du"> Du</label>
+            </div>
+            <div class="question">
+                <p>4. What is the informal way to say "how are you?"</p>
+                <label><input type="radio" name="q4" value="Wie geht es Ihnen?"> Wie geht es Ihnen?</label>
+                <label><input type="radio" name="q4" value="Wie geht's?"> Wie geht's?</label>
+            </div>
+            <div class="question">
+                <p>5. In a business meeting, how do you greet your client?</p>
+                <label><input type="radio" name="q5" value="Hallo"> Hallo</label>
+                <label><input type="radio" name="q5" value="Guten Tag"> Guten Tag</label>
+            </div>
+            <button type="submit">Submit Answers</button>
+        </form>
+        <div class="button-container">
+            <a href="/" class="button back-home-button">Back to Home</a>
+        </div>
+        <div id="result"></div>
+    </div>
+    <script src="{{ url_for('static', filename='assets/js/quiz1.js') }}"></script>
+</body>
+</html>
