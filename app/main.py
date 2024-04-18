@@ -30,3 +30,8 @@ def quiz():
 @main.route('/german_lesson')
 def german_lesson():
     return render_template('german.html')
+
+
+@main.route("/chatbot")
+def chatbot():
+    return render_template('chatbot.html')

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/chatbot.css') }}">
+    <title>Chatbot - WordCraft</title>
+</head>
+<body>
+    <div class="header">
+        Chatbot
+    </div>
+    <div class="navigation">
+        <a href="{{ url_for('main.home') }}" class="nav-link">Back to Home</a>
+    </div>
+    <div class="content">
+        <div class="chat-container">
+            <div class="chat-box" id="chat-box">
+                <div class="chat-message">
+                    <div class="chat-message-content">
+                        <p><span class="chatbot-span">Chatbot:</span> Hello! I'm your German language learning chatbot. How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your message here..." value="how do you say hello in spanish?">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='assets/js/chatbot.js') }}"></script>
+</body>
+</html>
