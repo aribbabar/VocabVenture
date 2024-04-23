@@ -59,7 +59,7 @@ a {
   border-radius: 12px;
 }
 
-.chat-input {
+#chat-form {
   padding: 1rem;
   display: flex;
 }
