@@ -11,6 +11,10 @@ a {
   color: #333;
 }
 
+ul {
+  padding-left: 1rem;
+}
+
 .navigation {
   display: flex;
   justify-content: center;
@@ -29,10 +33,13 @@ a {
   text-align: center;
 }
 
-.chat-box {
+.content {
+  padding: 1rem;
+}
+
+#chat-box {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
-  margin: 1rem;
   padding: 1rem;
   height: 500px;
   overflow-y: scroll;
@@ -41,7 +48,7 @@ a {
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.chat-box::-webkit-scrollbar {
+#chat-box::-webkit-scrollbar {
   display: none;
 }
 
@@ -60,7 +67,7 @@ a {
 }
 
 #chat-form {
-  padding: 1rem;
+  margin: 1rem 0;
   display: flex;
 }
 

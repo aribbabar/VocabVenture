@@ -14,19 +14,17 @@
         <a href="{{ url_for('main.home') }}" class="nav-link">Back to Home</a>
     </div>
     <div class="content">
-        <div class="chat-container">
-            <div class="chat-box" id="chat-box">
-                <div class="chat-message">
-                    <div class="chat-message-content">
-                        <p><span class="chatbot-span">Chatbot:</span> Hello! I'm your German language learning chatbot. How can I help you today?</p>
-                    </div>
-                </div>
-            </div>
-                <form id="chat-form">
-                    <input type="text" id="user-input" placeholder="Type your message here...">
-                    <button id="send-button" type="submit">Send</button>
-                </form>
+        <ul>
+            <li><p>If you attempting to translate text, wrap text that needs to be translated in quotes. For example: Please translate "how are you?" to spanish.</p></li>
+        </ul>
+        
+        <div id="chat-box">
+            <p><span class="chatbot-span">Chatbot:</span> Hello! I'm your German language learning chatbot. How can I help you today?</p>
         </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="Type your message here...">
+            <button id="send-button" type="submit">Send</button>
+        </form>
     </div>
     <script src="{{ url_for('static', filename='assets/js/chatbot.js') }}"></script>
 </body>

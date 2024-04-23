@@ -4,24 +4,27 @@ document.querySelector("#chat-form").addEventListener("submit", function (e) {
 });
 
 async function handleClick() {
-  const message = document.querySelector("#user-input").value;
-  const userMessage = document.createElement("p");
-  userMessage.innerHTML = `<span class="user-span">User:</span> ${message}`;
-
-  // append user message to chat messages box
-  document.querySelector(".chat-message-content").appendChild(userMessage);
-
-  const url = `https://api.wit.ai/message?v=20240417&q=${message}`;
-
-  const translation = await getTranslation(url);
-  const chatbotMessage = document.createElement("p");
-  chatbotMessage.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${translation}`;
-
-  // append chatbot message to chat messages box
-  document.querySelector(".chat-message-content").appendChild(chatbotMessage);
+  const userInputElement = document.querySelector("#user-input");
+  const userInput = userInputElement.value;
 
   // clear user input
-  document.querySelector("#user-input").value = "";
+  userInputElement.value = "";
+
+  const userMessageElement = document.createElement("p");
+  userMessageElement.innerHTML = `<span class="user-span">User:</span> ${userInput}`;
+
+  // append user message to chat messages box
+  const chatBoxElement = document.querySelector("#chat-box");
+  chatBoxElement.appendChild(userMessageElement);
+
+  const url = `https://api.wit.ai/message?v=20240417&q=${userInput}`;
+
+  const translation = await getTranslation(url);
+  const chatbotMessageElement = document.createElement("p");
+  chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${translation}`;
+
+  // append chatbot message to chat messages box
+  chatBoxElement.appendChild(chatbotMessageElement);
 }
 
 async function getTranslation(url) {
@@ -51,9 +54,11 @@ async function getTranslation(url) {
     const translation = translate(languageCode, phrase);
 
     return translation;
+  } else {
+    console.log(data);
   }
 
-  return "Error";
+  return "Oops! I didn't get that. Can you please rephrase?";
 }
 
 /**
@@ -82,8 +87,6 @@ async function translate(targetLanguage, phrase) {
 
   return "Error";
 }
-
-// test();
 
 /**
  *
