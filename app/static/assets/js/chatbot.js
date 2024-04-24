@@ -1,3 +1,5 @@
+const defaultResponse = "Oops! I didn't get that. Can you please rephrase?";
+
 document.querySelector("#chat-form").addEventListener("submit", function (e) {
   e.preventDefault();
   handleClick();
@@ -5,29 +7,37 @@ document.querySelector("#chat-form").addEventListener("submit", function (e) {
 
 async function handleClick() {
   const userInputElement = document.querySelector("#user-input");
+  const chatBoxElement = document.querySelector("#chat-box");
+  const userMessageElement = document.createElement("p");
+  const chatbotMessageElement = document.createElement("p");
   const userInput = userInputElement.value;
 
-  // clear user input
   userInputElement.value = "";
-
-  const userMessageElement = document.createElement("p");
   userMessageElement.innerHTML = `<span class="user-span">User:</span> ${userInput}`;
-
-  // append user message to chat messages box
-  const chatBoxElement = document.querySelector("#chat-box");
   chatBoxElement.appendChild(userMessageElement);
 
-  const url = `https://api.wit.ai/message?v=20240417&q=${userInput}`;
+  const { intent, entities } = await getResponse(userInput);
 
-  const translation = await getTranslation(url);
-  const chatbotMessageElement = document.createElement("p");
-  chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${translation}`;
+  if (intent.name === "greeting") {
+    chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> Hi! How can I help you today?`;
+  } else if (intent.name === "translation") {
+    const translation = await getTranslation(entities);
 
-  // append chatbot message to chat messages box
+    chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${translation}`;
+  } else {
+    chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${defaultResponse}`;
+  }
+
   chatBoxElement.appendChild(chatbotMessageElement);
 }
 
-async function getTranslation(url) {
+/**
+ *
+ * @param {string} userInput
+ */
+async function getResponse(userInput) {
+  const url = `https://api.wit.ai/message?v=20240417&q=${userInput}`;
+
   const res = await fetch(url, {
     method: "GET",
     headers: {
@@ -38,9 +48,13 @@ async function getTranslation(url) {
 
   const data = await res.json();
 
-  const intent = data.intents[0].name;
+  const intent = data.intents[0];
   const entities = data.entities;
 
+  return { intent, entities };
+}
+
+async function getTranslation(entities) {
   if (
     "language:language" in entities &&
     "wit$phrase_to_translate:phrase_to_translate" in entities
@@ -51,14 +65,12 @@ async function getTranslation(url) {
 
     const languageCode = await getLanguageCode(targetLanguage);
 
-    const translation = translate(languageCode, phrase);
+    const translation = await translate(languageCode, phrase);
 
     return translation;
-  } else {
-    console.log(data);
   }
 
-  return "Oops! I didn't get that. Can you please rephrase?";
+  return defaultResponse;
 }
 
 /**
@@ -85,7 +97,7 @@ async function translate(targetLanguage, phrase) {
     return translatedText;
   }
 
-  return "Error";
+  return defaultResponse;
 }
 
 /**
@@ -101,7 +113,7 @@ async function getLanguageCode(targetLanguage) {
     const name = language.name;
     const code = language.code;
 
-    if (name.toUpperCase() === targetLanguage.toUpperCase()) {
+    if (name.toLowerCase() === targetLanguage.toLowerCase()) {
       return code;
     }
   }
