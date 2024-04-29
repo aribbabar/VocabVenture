@@ -1,5 +1,5 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
-from flask_login import login_user, logout_user
+from flask import Blueprint, flash, redirect, render_template, request, url_for, jsonify
+from flask_login import current_user, login_user, logout_user
 from .extensions import db
 from .models import User
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -63,3 +63,18 @@ def signup():
 def logout():
     logout_user()
     return redirect(url_for('main.home'))
+
+
+@auth.route("/check_authentication")
+def check_authentication():
+    return jsonify({"isAuthenticated": current_user.is_authenticated})
+
+
+@auth.route("/get_user")
+def get_user():
+    if current_user.is_authenticated:
+        first_name = current_user.first_name
+        last_name = current_user.last_name
+
+        return jsonify({"first_name": first_name, "last_name": last_name})
+    return jsonify({"Error": "User not authenticated"})

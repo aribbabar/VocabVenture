@@ -11,9 +11,18 @@ async function handleClick() {
   const userMessageElement = document.createElement("p");
   const chatbotMessageElement = document.createElement("p");
   const userInput = userInputElement.value;
-
   userInputElement.value = "";
-  userMessageElement.innerHTML = `<span class="user-span">User:</span> ${userInput}`;
+
+  const isAuthenticated = await checkAuthentication();
+
+  if (isAuthenticated) {
+    const userFirstName = await getUserFirstName();
+
+    userMessageElement.innerHTML = `<span class="user-span">${userFirstName}:</span> ${userInput}`;
+  } else {
+    userMessageElement.innerHTML = `<span class="user-span">User:</span> ${userInput}`;
+  }
+
   chatBoxElement.appendChild(userMessageElement);
 
   const { intent, entities } = await getResponse(userInput);
@@ -120,4 +129,31 @@ async function getLanguageCode(targetLanguage) {
 
   // by default, return english
   return "en";
+}
+
+/**
+ *
+ * @returns {Promise<boolean>}
+ */
+async function checkAuthentication() {
+  const res = await fetch("/check_authentication");
+
+  if (res.ok) {
+    const data = await res.json();
+
+    return data.isAuthenticated;
+  }
+
+  return false;
+}
+
+async function getUserFirstName() {
+  const res = await fetch("/get_user");
+
+  if (res.ok) {
+    const data = await res.json();
+    return data.first_name;
+  }
+
+  return "User";
 }
