@@ -9,10 +9,10 @@ from .main import main as main_blueprint
 from .auth import auth as auth_blueprint
 
 
-def create_app():
+def create_app(database_uri="sqlite:///db.sqlite"):
     app = Flask(__name__)
     app.config["SECRET_KEY"] = "LiI(2mJ*Qm_2FC;<_0n+[D2Tb^Diqx"
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+    app.config["SQLALCHEMY_DATABASE_URI"] = database_uri
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
