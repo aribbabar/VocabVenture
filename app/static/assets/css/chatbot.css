@@ -88,3 +88,20 @@ ul {
   border-radius: 12px;
   cursor: pointer;
 }
+
+#clear-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  background-color: #ff4040;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.popup-button {
+  background-color: #ff4040;
+  color: #fff;
+  border: none;
+}

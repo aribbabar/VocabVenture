@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for, jsonify
 from flask_login import current_user, login_user, logout_user
 from .extensions import db
-from .models import User
+from .models import User, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 
 auth = Blueprint('auth', __name__)
@@ -77,4 +77,46 @@ def get_user():
         last_name = current_user.last_name
 
         return jsonify({"first_name": first_name, "last_name": last_name})
-    return jsonify({"Error": "User not authenticated"})
+    return jsonify({"error": "User not authenticated"})
+
+
+@auth.route("/save_message", methods=["POST"])
+def save_message():
+    if current_user.is_authenticated:
+        message = request.json["message"]
+        sender = request.json["sender"]
+
+        new_message = Message(sender=sender, message=message,
+                              user_id=current_user.id, user=current_user)
+
+        db.session.add(new_message)
+        db.session.commit()
+
+        return jsonify({"message": "Message saved successfully!"}), 201
+    return jsonify({"error": "User not authenticated"})
+
+
+@auth.route("/get_messages")
+def get_messages():
+    if current_user.is_authenticated:
+        messages = Message.query.filter_by(user_id=current_user.id).order_by(
+            Message.created_at.asc()).all()
+
+        messages_list = []
+        for message in messages:
+            messages_list.append({
+                "sender": message.sender,
+                "message": message.message,
+            })
+
+        return jsonify({"messages": messages_list})
+    return jsonify({"error": "User not authenticated"})
+
+@auth.route("/delete_messages", methods=["POST"])
+def delete_messages():
+    if current_user.is_authenticated:
+        Message.query.filter_by(user_id=current_user.id).delete()
+        db.session.commit()
+
+        return jsonify({"message": "Messages deleted successfully!"}), 200
+    return jsonify({"error": "User not authenticated"})

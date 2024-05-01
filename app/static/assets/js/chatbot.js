@@ -1,9 +1,51 @@
 const defaultResponse = "Oops! I didn't get that. Can you please rephrase?";
+const popup = new Popup({
+  id: "clear-chat-popup",
+  title: "Clear Chat",
+  content: `Are you sure you want to clear the chat?
+  {btn-popup-button}[Yes]`,
+  loadCallback: () => {
+    document
+      .querySelector(".popup-button")
+      .addEventListener("click", function () {
+        deleteMessages();
+      });
+  }
+});
 
 document.querySelector("#chat-form").addEventListener("submit", function (e) {
   e.preventDefault();
   handleClick();
 });
+
+document.querySelector("#clear-btn").addEventListener("click", function () {
+  popup.show();
+});
+
+appendOldMessages();
+
+async function appendOldMessages() {
+  const res = await fetch("/get_messages");
+  const messages = await res.json();
+  const userFirstName = await getUserFirstName();
+
+  if (messages["error"]) {
+    return;
+  }
+
+  for (const message of messages["messages"]) {
+    const chatBoxElement = document.querySelector("#chat-box");
+    const messageElement = document.createElement("p");
+
+    if (message.sender === "user") {
+      messageElement.innerHTML = `<span class="user-span">${userFirstName}:</span> ${message.message}`;
+    } else {
+      messageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${message.message}`;
+    }
+
+    chatBoxElement.appendChild(messageElement);
+  }
+}
 
 async function handleClick() {
   const userInputElement = document.querySelector("#user-input");
@@ -19,6 +61,7 @@ async function handleClick() {
     const userFirstName = await getUserFirstName();
 
     userMessageElement.innerHTML = `<span class="user-span">${userFirstName}:</span> ${userInput}`;
+    await saveMessage(userInput, "user");
   } else {
     userMessageElement.innerHTML = `<span class="user-span">User:</span> ${userInput}`;
   }
@@ -28,13 +71,17 @@ async function handleClick() {
   const { intent, entities } = await getResponse(userInput);
 
   if (intent.name === "greeting") {
-    chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> Hi! How can I help you today?`;
+    const chatbotMessage = "Hi! How can I help you today?";
+    chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${chatbotMessage}`;
+    await saveMessage(chatbotMessage, "chatbot");
   } else if (intent.name === "translation") {
     const translation = await getTranslation(entities);
 
     chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${translation}`;
+    await saveMessage(translation, "chatbot");
   } else {
     chatbotMessageElement.innerHTML = `<span class="chatbot-span">Chatbot:</span> ${defaultResponse}`;
+    await saveMessage(defaultResponse, "chatbot");
   }
 
   chatBoxElement.appendChild(chatbotMessageElement);
@@ -156,4 +203,32 @@ async function getUserFirstName() {
   }
 
   return "User";
+}
+
+/**
+ *
+ * @param {string} message - message to save
+ * @param {string} sender - sender of the message
+ */
+async function saveMessage(message, sender) {
+  await fetch("/save_message", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ message: message, sender: sender })
+  });
+}
+
+async function deleteMessages() {
+  const chatBoxElement = document.querySelector("#chat-box");
+
+  await fetch("/delete_messages", {
+    method: "POST"
+  });
+
+  chatBoxElement.innerHTML = "";
+
+  popup.hide();
 }
