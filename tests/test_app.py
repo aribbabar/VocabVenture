@@ -1,6 +1,7 @@
-from app.models import User
-from flask_login import current_user
 import requests
+from flask_login import current_user
+
+from app.models import User
 
 
 def test_home(client):
@@ -8,7 +9,7 @@ def test_home(client):
     assert response.status_code == 200
 
 
-def test_registration(client, app):
+def test_signup(client, app):
     response = client.post('/signup', data={
         "first_name": "John",
         "last_name": "Doe",
@@ -30,21 +31,44 @@ def test_registration(client, app):
 
 
 def test_login(client, app):
-    response = client.post('/login', data={
-        "username": "johndoe",
-        "password": "password"
-    })
+    with client:
+        client.post('/signup', data={
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "johndoe@gmail.com",
+            "username": "johndoe",
+            "password": "password"
+        })
 
-    with app.app_context():
+        response = client.post('/login', data={
+            "username": "johndoe",
+            "password": "password"
+        })
+
         user = User.query.filter_by(username="johndoe").first()
         assert current_user == user
         assert response.status_code == 302
 
 
 def test_logout(client):
-    response = client.get('/logout')
-    assert response.status_code == 302
-    assert current_user == None
+    with client:
+        client.post('/signup', data={
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "johndoe@gmail.com",
+            "username": "johndoe",
+            "password": "password"
+        })
+
+        client.post('/login', data={
+            "username": "johndoe",
+            "password": "password"
+        })
+
+        response = client.get('/logout')
+
+        assert response.status_code == 302
+        assert not current_user.is_authenticated
 
 
 def test_wit_api():
@@ -58,3 +82,38 @@ def test_wit_api():
     assert json['intents'][0]['name'] == 'translation'
     assert json['entities']['language:language'][0]['value'] == 'Spanish'
     assert json['entities']['wit$phrase_to_translate:phrase_to_translate'][0]['value'] == 'how are you'
+
+
+def test_save_message_without_auth(client):
+    response = client.post("/save_message", data={
+        "message": "Hello",
+        "sender": "user"
+    })
+
+    assert b"error" in response.data
+
+
+def test_save_message_with_auth(client, app):
+    with client:
+        client.post('/signup', data={
+            "first_name": "John",
+            "last_name": "Doe",
+            "email": "johndoe@gmail.com",
+            "username": "johndoe",
+            "password": "password"
+        })
+
+        client.post('/login', data={
+            "username": "johndoe",
+            "password": "password"
+        })
+
+        response = client.post("/save_message", json={
+            "message": "Hello",
+            "sender": "user"
+        })
+
+        user = User.query.filter_by(username="johndoe").first()
+
+        assert b'Message saved successfully!' in response.data
+        assert len(user.messages) == 1

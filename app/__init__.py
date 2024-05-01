@@ -3,7 +3,6 @@ from flask_login import LoginManager
 from .extensions import db, migrate
 from .models import User
 
-
 # Blueprints
 from .main import main as main_blueprint
 from .auth import auth as auth_blueprint

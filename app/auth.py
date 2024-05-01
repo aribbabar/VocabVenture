@@ -1,8 +1,10 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for, jsonify
+from flask import (Blueprint, flash, jsonify, redirect, render_template,
+                   request, url_for)
 from flask_login import current_user, login_user, logout_user
+from werkzeug.security import check_password_hash, generate_password_hash
+
 from .extensions import db
-from .models import User, Message
-from werkzeug.security import generate_password_hash, check_password_hash
+from .models import Message, User
 
 auth = Blueprint('auth', __name__)
 
@@ -111,6 +113,7 @@ def get_messages():
 
         return jsonify({"messages": messages_list})
     return jsonify({"error": "User not authenticated"})
+
 
 @auth.route("/delete_messages", methods=["POST"])
 def delete_messages():
