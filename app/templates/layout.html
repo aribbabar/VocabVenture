@@ -31,8 +31,6 @@
                         </ul>
                     </li>                                            
                     <li><a href="{{ url_for('main.chatbot') }}">Chatbot</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
                     {% if current_user.is_authenticated %}
                         <li><a href="{{ url_for('auth.logout') }}">Logout</a></li>
                     {% endif %}
